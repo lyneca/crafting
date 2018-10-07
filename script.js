@@ -18,7 +18,7 @@ promises.push($.get("templates/recipe.html").done((data) => {
 }));
 
 $.when.apply($, promises).then(function() {
-    test();
+    // test();
     refresh();
 });
 
