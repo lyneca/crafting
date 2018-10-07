@@ -1,7 +1,9 @@
 <div class="recipe" id="recipe-{{=it.slug}}" itemname="{{=it.makes}}">
     <div class="makes">{{=it.count}}x {{=it.makes}}</div>
+    {{? it.needs.length > 0}}
     <div class="needs">
         {{~it.needs :item:index}}<div class="dependency">{{=item.name}}<span class="dependency-count">{{=item.count}}</span></div>{{~}}
     </div>
+    {{?}}
     <form class="needs-form" action=""><input type="text" class="needs-input" placeholder="Add dependency"><input type="submit" class="needs-submit"></form>
 </div>
