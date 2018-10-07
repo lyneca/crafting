@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css?family=Inconsolata');
+
+a:link,
+a:active,
+a:visited {
+    color: #bbbbbb;
+    text-decoration: none;
+}
+
+body {
+    font-family: "Inconsolata", "Courier New", monospace;
+    font-size: 20px;
+    height: 100%;
+    background-color: white;
+}
+
+header {
+    z-index: 50;
+    border-bottom: 1px solid #bbbbbb;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    width: 100%;
+}
+
+header > h1 {
+    font-size: 60px;
+    font-weight: normal;
+}
+
+.about {
+    display: inline-block;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    color: #bbbbbb;
+    margin: 5px;
+    padding: 5px;
+}
+
+.recipes {
+    margin-top: 85px;
+}
+
+.recipe-add {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 500px;
+    margin: 10px;
+    margin-right: 5px;
+    font-family: 'Inconsolata', sans-serif;
+    padding: 10px;
+    font-size: 30px;
+    color: #777777;
+    border: 1px solid #bbbbbb;
+    border-radius: 5px;
+}
+
+.recipe-add:focus {
+    outline: 0;
+}
+
+.recipe-submit {
+    /* display: none; */
+    margin: 10px;
+    margin-left: 5px;
+    padding: 10px;
+    font-size: 27px;
+    width: 50px;
+    text-align: center;
+    border: 1px solid #bbbbbb;
+    color: #777777;
+    user-select: none;
+    -moz-user-select: none;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: white;
+    transition: background-color 0.1s ease-in-out;
+}
+
+.recipe-submit:hover {
+    background-color: #eeeeee;
+}
+
+.recipe {
+    border: 1px solid #bbbbbb;
+    overflow-wrap: break-word;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 10px auto;
+    width: 400px;
+    font-size: 20px;
+    transition: background-color 0.1s;
+}
+
+.recipe .makes {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+
+.needs-form {
+    padding: 5px;
+}
+
+.needs-form input {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #bbbbbb;
+    border-radius: 5px;
+    padding: 5px;
+    font-family: "Inconsolata", "Courier New", monospace;
+    font-size: 20px;
+}
+
+.needs {
+    padding: 10px 30px;
+}
+
+.needs-submit {
+    display: none;
+}
+
+.dependency {
+    display: block;
+    position: relative;
+    border-bottom: 1px solid #bbbbbb;
+    padding: 3px;
+}
+
+.dependency-count {
+    position: absolute;
+    right: 0;
+}
+
+@media only screen and (max-width: 580px) {
+    .recipe-add {
+        width: 60%;
+        margin-right: 5px !important;
+    }
+    .recipe {
+        width: 90%;
+    }
+    .recipe-submit {
+        display: inline-block;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .about {
+        display: none;
+    }
+}
