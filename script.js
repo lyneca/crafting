@@ -40,6 +40,32 @@ function parseItemString(item) {
 
 }
 
+function mergeCounts(base, dep) {
+    $.each(dep, (key, value) => {
+        base[key] = (base.hasOwnProperty(key)) ? base[key] + value : value;
+    });
+}
+
+function hasDependencyChain(recipe) {
+    return recipe.needs.some((dep) => {
+        return recipes.hasOwnProperty(dep.name);
+    });
+}
+
+function getBaseItemCounts(recipe, count) {
+    var counts = {};
+    if (recipes.hasOwnProperty(recipe)) {
+        var actuallyNeeds = Math.ceil(count / recipes[recipe].count);
+        $.each(recipes[recipe].needs, function(index, dep) {
+            var depCounts = getBaseItemCounts(dep.name, actuallyNeeds * dep.count);
+            mergeCounts(counts, depCounts);
+        });
+    } else {
+        counts[recipe] = count;
+    }
+    return counts;
+}
+
 function refresh(focus) {
     $('.recipes').empty();
     $.each(recipes, (key, value) => {
@@ -61,7 +87,6 @@ function refresh(focus) {
         event.preventDefault();
     });
     if (focus != undefined) {
-        console.log(focus);
         $(focus).find('.needs-input').focus();
     }
 }
@@ -114,4 +139,11 @@ function test() {
     addDependency("piston", "redstone", 1);
     addDependency("piston", "stone", 4);
     addDependency("piston", "plank", 3);
+
+    addRecipe("plank", 4);
+    addDependency("plank", "log", 1);
+
+    addRecipe("stone", 1);
+    addDependency("stone", "cobblestone", 1);
+    refresh();
 }
