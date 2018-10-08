@@ -5,13 +5,8 @@ var recipesAdded = [];
 var countMatch = /^(\d+)x ?(.+)/
 
 var tmplRecipe;
-var tmplDependency;
 
 var promises = [];
-
-promises.push($.get("templates/dependency.html").done((data) => {
-    tmplDependency = doT.template(data.trim());
-}));
 
 promises.push($.get("templates/recipe.html").done((data) => {
     tmplRecipe = doT.template(data.trim());
@@ -40,6 +35,10 @@ function parseItemString(item) {
 
 }
 
+function hasRecipe(recipe) {
+    return recipes.hasOwnProperty(recipe) && recipes[recipe] != undefined;
+}
+
 function mergeCounts(base, dep) {
     $.each(dep, (key, value) => {
         base[key] = (base.hasOwnProperty(key)) ? base[key] + value : value;
@@ -48,13 +47,13 @@ function mergeCounts(base, dep) {
 
 function hasDependencyChain(recipe) {
     return recipe.needs.some((dep) => {
-        return recipes.hasOwnProperty(dep.name);
+        return hasRecipe(dep.name);
     });
 }
 
 function getBaseItemCounts(recipe, count) {
     var counts = {};
-    if (recipes.hasOwnProperty(recipe)) {
+    if (hasRecipe(recipe)) {
         var actuallyNeeds = Math.ceil(count / recipes[recipe].count);
         $.each(recipes[recipe].needs, function(index, dep) {
             var depCounts = getBaseItemCounts(dep.name, actuallyNeeds * dep.count);
