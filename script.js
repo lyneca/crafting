@@ -1,47 +1,43 @@
-var recipes = {};
+/* eslint-disable no-undef */
+const recipes = {};
 
-var recipesAdded = [];
+const recipesAdded = [];
 
-var countMatch = /^(\d+)x ?(.+)/
+const countMatch = /^(\d+)x ?(.+)/u;
 
-var tmplRecipe;
+let tmplRecipe;
 
-var promises = [];
+const promises = [];
 
 promises.push($.get("templates/recipe.html").done((data) => {
     tmplRecipe = doT.template(data.trim());
 }));
 
-$.when.apply($, promises).then(function() {
-    // test();
-    refresh();
-});
-
 function slugify(text) {
     return text
         .toLowerCase()
-        .replace(/[^\w ]+/g, '')
-        .replace(/ +/g, '-');
+        .replace(/[^\w ]+/ug, '')
+        .replace(/ +/ug, '-');
 }
 
 function parseItemString(item) {
     count = 1;
     if (countMatch.test(item)) {
-        var match = countMatch.exec(item);
-        count = parseInt(match[1]);
+        const match = countMatch.exec(item);
+        count = parseInt(match[1], 10);
         item = match[2];
     }
-    return {count: count, item: item};
+    return { count: count, item: item };
 
 }
 
 function hasRecipe(recipe) {
-    return recipes.hasOwnProperty(recipe) && recipes[recipe] != undefined;
+    return recipes.hasOwnProperty(recipe) && recipes[recipe] !== undefined;
 }
 
 function mergeCounts(base, dep) {
     $.each(dep, (key, value) => {
-        base[key] = (base.hasOwnProperty(key)) ? base[key] + value : value;
+        base[key] = base.hasOwnProperty(key) ? base[key] + value : value;
     });
 }
 
@@ -52,11 +48,11 @@ function hasDependencyChain(recipe) {
 }
 
 function getBaseItemCounts(recipe, count) {
-    var counts = {};
+    const counts = {};
     if (hasRecipe(recipe)) {
-        var actuallyNeeds = Math.ceil(count / recipes[recipe].count);
+        const actuallyNeeds = Math.ceil(count / recipes[recipe].count);
         $.each(recipes[recipe].needs, function(index, dep) {
-            var depCounts = getBaseItemCounts(dep.name, actuallyNeeds * dep.count);
+            const depCounts = getBaseItemCounts(dep.name, actuallyNeeds * dep.count);
             mergeCounts(counts, depCounts);
         });
     } else {
@@ -65,28 +61,33 @@ function getBaseItemCounts(recipe, count) {
     return counts;
 }
 
+function addDependency(item, dependency, count) {
+    recipes[item].needs.push({ name: dependency, count: count, slug: slugify(dependency) });
+}
+
 function refresh(focus) {
     $('.recipes').empty();
     $.each(recipes, (key, value) => {
-        if (value != undefined) $('.recipes').append(tmplRecipe(value));
+        if (value !== undefined) $('.recipes').append(tmplRecipe(value));
     });
     $('.needs-form').submit(function(event) {
-        var string = $(this).children('.needs-input').val();
-        var item = $(this).parent().attr('itemname');
-        var id = $(this).parent().attr('id');
-        if (string == '') {
+        const string = $(this).children('.needs-input').val();
+        const item = $(this).parent().attr('itemname');
+        const id = $(this).parent().attr('id');
+        if (string === '') {
             recipes[item].needs.pop();
             event.preventDefault();
             refresh('#' + id);
             return;
         }
-        var needs = parseItemString(string);
+        const needs = parseItemString(string);
         addDependency(item, needs.item, needs.count);
         refresh('#' + id);
         event.preventDefault();
     });
-    if (focus != undefined) {
-        $(focus).find('.needs-input').focus();
+    if (focus !== undefined) {
+        $(focus).find('.needs-input')
+            .focus();
     }
 }
 
@@ -107,24 +108,21 @@ function popRecipe() {
     refresh();
 }
 
-function addDependency(item, dependency, count) {
-    recipes[item].needs.push({name: dependency, count: count, slug: slugify(dependency)});
-}
-
-$('.recipe-add').keyup(function() {
-    if ($('.recipe-add').val() != '' || $('.recipe').length == 0) {
+$('.recipe-add').keyup(() => {
+    if ($('.recipe-add').val() !== '' || $('.recipe').length === 0) {
         $('.recipe-submit').html('<i class="fas fa-plus"></i>');
     } else {
         $('.recipe-submit').html('<i class="fas fa-check"></i>');
     }
 });
 
-$('.recipe-form').submit(function(event) {
-    var item = $('.recipe-add').val().trim();
-    if (item == '') {
+$('.recipe-form').submit((event) => {
+    const item = $('.recipe-add').val()
+        .trim();
+    if (item === '') {
         popRecipe();
     } else {
-        var i = parseItemString(item);
+        const i = parseItemString(item);
         addRecipe(i.item, i.count);
     }
 
@@ -146,3 +144,9 @@ function test() {
     addDependency("stone", "cobblestone", 1);
     refresh();
 }
+
+$.when.apply($, promises).then(function() {
+    // test();
+    refresh();
+});
+
