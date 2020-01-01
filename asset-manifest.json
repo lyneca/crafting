@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/crafting/static/css/main.d1b05096.chunk.css",
+    "main.js": "/crafting/static/js/main.7e5cf425.chunk.js",
+    "main.js.map": "/crafting/static/js/main.7e5cf425.chunk.js.map",
+    "runtime-main.js": "/crafting/static/js/runtime-main.3984bc98.js",
+    "runtime-main.js.map": "/crafting/static/js/runtime-main.3984bc98.js.map",
+    "static/js/2.60f6defb.chunk.js": "/crafting/static/js/2.60f6defb.chunk.js",
+    "static/js/2.60f6defb.chunk.js.map": "/crafting/static/js/2.60f6defb.chunk.js.map",
+    "index.html": "/crafting/index.html",
+    "precache-manifest.58f340235b3104fa29868e033f9582b8.js": "/crafting/precache-manifest.58f340235b3104fa29868e033f9582b8.js",
+    "service-worker.js": "/crafting/service-worker.js",
+    "static/css/main.d1b05096.chunk.css.map": "/crafting/static/css/main.d1b05096.chunk.css.map",
+    "static/js/2.60f6defb.chunk.js.LICENSE": "/crafting/static/js/2.60f6defb.chunk.js.LICENSE",
+    "static/media/logo.svg": "/crafting/static/media/logo.5d5d9eef.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3984bc98.js",
+    "static/js/2.60f6defb.chunk.js",
+    "static/css/main.d1b05096.chunk.css",
+    "static/js/main.7e5cf425.chunk.js"
+  ]
+}
