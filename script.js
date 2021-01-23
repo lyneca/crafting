@@ -3,7 +3,7 @@ const recipes = {};
 
 const recipesAdded = [];
 
-const countMatch = /^(\d+)x ?(.+)/u;
+const countMatch = /^(\.\d+)x ?(.+)/u;
 
 let tmplRecipe;
 
