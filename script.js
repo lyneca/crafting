@@ -24,7 +24,7 @@ function parseItemString(item) {
     count = 1;
     if (countMatch.test(item)) {
         const match = countMatch.exec(item);
-        count = parseInt(match[1], 10);
+        count = parseFloat(match[1], 10);
         item = match[2];
     }
     return { count: count, item: item };
